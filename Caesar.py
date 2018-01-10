@@ -1,27 +1,14 @@
 class Caesar(object):
     __letterToNumber = {"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,"Q":16,"R":17,"S":18,"T":19,"U":20,"V":21,"W":22,"X":23,"Y":24,"Z":25}
     __numberToLetter = {0:"A",1:"B",2:"C",3:"D",4:"E",5:"F",6:"G",7:"H",8:"I",9:"J",10:"K",11:"L",12:"M",13:"N",14:"O",15:"P",16:"Q",17:"R",18:"S",19:"T",20:"U",21:"V",22:"W",23:"X",24:"Y",25:"Z"}
-    __input = ""
-    
-    
-    def __init__(self, input):
-        input = input.upper()
-        self.__input = input
-            
-    def setInput(self, input):
-        input = input.upper()
-        self.__input = input
-        
-    def getInput(self):
-        return self.__input
-        
-    def encrypt(self, key):
+
+    def encrypt(self, text, key):
         output = ""
         
         key = key.upper()
         key = self.__letterToNumber[key]
         
-        for i in self.__input:
+        for i in text:
             if i in self.__letterToNumber:
                 letter = self.__letterToNumber[i]
                 letter = int((letter + key) % 26)            
@@ -32,13 +19,13 @@ class Caesar(object):
         
         return output
 
-    def decrypt(self, key):
+    def decrypt(self, text, key):
         output = ""
         
         key = key.upper()
         key = self.__letterToNumber[key]
         
-        for i in self.__input:
+        for i in text:
             if i in self.__letterToNumber:
                 letter = self.__letterToNumber[i]
                 letter = int(abs((letter - key) % 26))            
@@ -49,10 +36,10 @@ class Caesar(object):
         
         return output
 
-    def bruteForce(self):
+    def bruteForce(self, input):
         maxWordLength = 0
         maxWord = ""
-        wordList = list((self.__input).split())
+        wordList = list(input.split())
         
         for i in wordList:
             if len(i) > maxWordLength:
@@ -66,10 +53,10 @@ class Caesar(object):
             key = self.__numberToLetter[i]            
             print(key, "\t" ,tester.decrypt(key))
             
-    def findKey(self):
+    def findKey(self, input):
         dict2 = ("IN","IM","AM","AN","UM","ER","ES","ZU")
         dict3 = ("DER","DIE","DAS","DEN","DEM","DES","VON","VOM","UND","IST")
-        wordListComplete = list((self.__input).split())
+        wordListComplete = list(input.split())
         wordList2 = []
         wordList3 = []
         max2Letter = ""
@@ -109,4 +96,4 @@ class Caesar(object):
             print("Result:\t", max2Letter)
         else:
             print("Result:\t", max2Letter, " or ", max3Letter)
-   
+    
